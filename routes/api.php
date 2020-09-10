@@ -14,18 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//TODO: Ultilizar Grupos nas rotas
-Route::get('/v1/', function(){
-    return ['success' => false];
-})->name('login');
+Route::namespace('Api\v1')->group(function () {
+    // Public Routes
+    Route::post('v1/auth/login', 'AuthController@login');
 
-Route::post('/v1/auth/singup', 'UserController@singup')->name('auth-singup');
-Route::post('/v1/auth/singin', 'UserController@singin')->name('auth-singin');
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    // Private Routes
+    Route::group(['middleware' => ['apiJwt']], function(){
+        Route::get('v1/users', 'UserController@index');
+        Route::post('v1/auth/logout', 'AuthController@logout');
+        Route::post('v1/auth/refresh', 'AuthController@refresh');
+        Route::post('v1/auth/me', 'AuthController@me');
+    });
 });
-
-Route::middleware('auth:api')
-    ->get('/v1/system/getAll', 'SystemController@getAll')
-    ->name('system-getall');
