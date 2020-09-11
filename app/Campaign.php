@@ -15,6 +15,7 @@ class Campaign extends Model
             ->where('c.user_id', $userId)
             ->orWhere('cu.user_id', $userId)
             ->select('c.*', 'u.email', 'u.name AS userName')
+            ->distinct()
             ->get();
 
         return $result;
