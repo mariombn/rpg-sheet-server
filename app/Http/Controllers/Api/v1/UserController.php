@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return response()->json($users);
+        return $this->responseJson(true, $users);
     }
 
     /**
@@ -27,7 +28,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $userForm = $request->only(['name', 'lastname', 'email', 'password', 'passwordCheck']);
+
+            $userEntity = new User();
+            $userEntity->name = $userForm['name'];
+            $userEntity->lastname = $userForm['lastname'];
+            $userEntity->email = $userForm['email'];
+            $userEntity->password = Hash::make($userForm['password']);
+            $userEntity->save();
+
+            return $this->responseJson(true, $userEntity);
+        } catch (\Exception $e) {
+            return $this->responseJson(false, [], $e->getMessage(), 401);
+        }
     }
 
     /**

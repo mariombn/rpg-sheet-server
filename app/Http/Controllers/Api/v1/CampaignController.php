@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Campaign;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,10 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        //
+        $userId = auth('api')->user()->id;
+        $campaingModel = new Campaign();
+        $campaingCollection = $campaingModel->getCampaingsByUser($userId);
+        return $this->responseJson(true, $campaingCollection);
     }
 
     /**
