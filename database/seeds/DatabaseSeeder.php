@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SystemSeeder::class);
         $this->call(UserMockSeeder::class);
+        $this->call(MockSeeder::class);
     }
 }

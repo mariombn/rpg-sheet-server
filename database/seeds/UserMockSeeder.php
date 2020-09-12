@@ -21,16 +21,16 @@ class UserMockSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => Str::random(10),
-            'lastname' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
+            'name' => 'Tonhão',
+            'lastname' => 'da Silva',
+            'email' => 'tonhao@gmail.com',
             'password' => Hash::make('senha123'),
         ]);
 
         DB::table('users')->insert([
-            'name' => Str::random(10),
-            'lastname' => Str::random(10),
-            'email' => Str::random(10).'@gmail.com',
+            'name' => 'Cristovão',
+            'lastname' => 'Colombo',
+            'email' => 'cris@gmail.com',
             'password' => Hash::make('senha123'),
         ]);
     }

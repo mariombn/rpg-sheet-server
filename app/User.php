@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -57,5 +58,19 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * @param String $mail
+     * @return int
+     */
+    public static function getUserIdByMail($mail)
+    {
+        $result = DB::table('users')
+            ->where('email', $mail)
+            ->select('id')
+            ->first();
+
+        return $result->id;
     }
 }

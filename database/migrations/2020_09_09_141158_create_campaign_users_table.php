@@ -15,10 +15,12 @@ class CreateCampaignUsersTable extends Migration
     {
         Schema::create('campaign_users', function (Blueprint $table) {
             $table->id();
+            $table->enum('status', ['invited', 'accept', 'refused'])->default('invited');
             $table->unsignedBigInteger('campaign_id');
             $table->foreign('campaign_id')->references('id')->on('campaigns');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unique('campaign_id', 'user_id');
             $table->timestamps();
         });
     }

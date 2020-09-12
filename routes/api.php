@@ -28,11 +28,15 @@ Route::namespace('Api\v1')->group(function () {
 
         Route::get('v1/systems', 'SystemController@index');
 
-            Route::get('v1/campaigns', 'CampaignController@index')->name('campaigns-index');
+        Route::get('v1/campaigns', 'CampaignController@index')->name('campaigns-index');
         Route::get('v1/campaigns/{id}', 'CampaignController@show')->name('campaigns-show');
         Route::post('v1/campaigns', 'CampaignController@store')->name('campaigns-store');
-        Route::put('v1/campaigns/{id}', 'CampaignController@update')->name('campaigns-update');
-        Route::delete('v1/campaigns/{id}', 'CampaignController@destroy')->name('campaigns-destroy');
+//        Route::put('v1/campaigns/{id}', 'CampaignController@update')->name('campaigns-update');
+//        Route::delete('v1/campaigns/{id}', 'CampaignController@destroy')->name('campaigns-destroy');
+        //inviteUser
+        Route::post('v1/campaigns/{id}/invite', 'CampaignController@inviteUser')->name('campaigns-inviteUser');
+
+        Route::get('v1/sheets/campaign/{id}', 'SheetController@getSheetsFromCampaing')->name('campaigns-show');
 
         Route::post('v1/auth/logout', 'AuthController@logout');
         Route::post('v1/auth/refresh', 'AuthController@refresh');
